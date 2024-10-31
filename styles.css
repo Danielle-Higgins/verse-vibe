@@ -186,7 +186,8 @@ form .search-btn:hover {
 .track-results .results-title {
   font-size: 2.5rem;
   font-weight: 600;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+  display: none;
 }
 
 .results-list {
