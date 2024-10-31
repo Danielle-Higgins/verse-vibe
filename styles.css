@@ -178,9 +178,54 @@ form .search-btn:hover {
   transform: scale(1.05);
 }
 
+/* ----- Tracks Styles ----- */
+.track-results {
+  padding: 0 20px 90px;
+}
+
 .track-results .results-title {
   font-size: 2.5rem;
   font-weight: 600;
+  margin-bottom: 50px;
+}
+
+.results-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  row-gap: 0;
+}
+
+.results-list .result-item {
+  border-bottom: 2px solid var(--secondary-color);
+  padding: 20px;
+  transition: 0.3s;
+}
+
+.results-list .result-item:hover {
+  background-color: var(--secondary-color);
+  border-radius: 5px;
+}
+
+.results-list .lyric-link {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.results-list .album-cover {
+  width: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.results-list .song-title {
+  color: #fff;
+  font-weight: 600;
+}
+
+.results-list .artist-name {
+  color: rgb(189, 189, 189);
 }
 
 /* ----- Utility Classes ----- */
