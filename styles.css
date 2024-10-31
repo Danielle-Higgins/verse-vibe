@@ -111,7 +111,7 @@ img {
 
 /* ----- Search Styles ----- */
 .search-section {
-  padding: 140px 20px 40px;
+  padding: 120px 20px 60px;
 }
 
 .search-section .search-title {
@@ -168,7 +168,7 @@ form .search-btn {
   padding: 12px 24px;
   font-size: 1.8rem;
   border: none;
-  border-radius: 20px;
+  border-radius: 25px;
   font-weight: 600;
   cursor: pointer;
   transition: 0.5s;
@@ -176,6 +176,11 @@ form .search-btn {
 
 form .search-btn:hover {
   transform: scale(1.05);
+}
+
+.track-results .results-title {
+  font-size: 2.5rem;
+  font-weight: 600;
 }
 
 /* ----- Utility Classes ----- */
