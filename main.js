@@ -6,7 +6,7 @@ const trackList = document.getElementById("results");
 
 const BASEURL = "https://api.lyrics.ovh";
 
-// when form is submitted
+// when form is submitted, search for song
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -14,10 +14,11 @@ form.addEventListener("submit", (e) => {
   let artistVal = artistInput.value.trim();
   let titleVal = titleInput.value.trim();
 
-  // if inputs are empty
+  // check if inputs are empty or not
   if (!artistVal && !titleVal) alert("Nothing To Search");
   else searchSong(artistVal, titleVal);
 
+  // reset everything
   artistInput.value = "";
   titleInput.value = "";
 
@@ -41,7 +42,7 @@ function searchSong(artist, title) {
       //   console.log(data);
       console.log(data.data);
 
-      // if if both inputs were populated
+      // check if both inputs were populated
       if (artist && title) {
         data.data = data.data.filter(
           (item) =>
@@ -68,7 +69,7 @@ function displayTracks(array) {
 
     const link = document.createElement("a");
     link.classList.add("lyric-link");
-    link.href = "#"; // TODO
+    link.href = "./lyrics.html";
     listItem.appendChild(link);
 
     const image = document.createElement("img");
