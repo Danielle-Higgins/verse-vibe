@@ -113,19 +113,12 @@ if (document.getElementById("search-page")) {
 
   trackList.addEventListener("click", (e) => {
     // console.log(e.target.tagName);
-    const link = document.querySelector(".lyric-link");
 
-    if (
-      e.target.tagName === "A" ||
-      e.target.tagName === "IMG" ||
-      e.target.tagName === "P" ||
-      e.target.tagName === "SPAN" ||
-      e.target.tagName === "LI"
-    ) {
-      const artist = link.getAttribute("data-artist");
-      const title = link.getAttribute("data-title");
-      const albumImg = link.getAttribute("data-img");
-      const album = link.getAttribute("data-album-name");
+    if (e.target.tagName === "A") {
+      const artist = e.target.getAttribute("data-artist");
+      const title = e.target.getAttribute("data-title");
+      const albumImg = e.target.getAttribute("data-img");
+      const album = e.target.getAttribute("data-album-name");
 
       getLyrics(artist, title, albumImg, album);
     }
