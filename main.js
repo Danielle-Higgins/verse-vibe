@@ -111,16 +111,33 @@ if (document.getElementById("search-page")) {
     });
   }
 
+  // listens for click events on track list element (ul)
   trackList.addEventListener("click", (e) => {
-    // console.log(e.target.tagName);
+    // console.log(e.target);
 
-    if (e.target.tagName === "A") {
-      const artist = e.target.getAttribute("data-artist");
-      const title = e.target.getAttribute("data-title");
-      const albumImg = e.target.getAttribute("data-img");
-      const album = e.target.getAttribute("data-album-name");
+    let target = e.target;
 
-      getLyrics(artist, title, albumImg, album);
+    // Find the closest 'li' ancestor if the clicked element is not an 'li'
+    while (target && target.tagName !== "LI") {
+      target = target.parentElement;
+    }
+
+    // console.log(target);
+
+    // If a valid <li> is found
+    if (target) {
+      // Get the anchor within the <li>
+      const link = target.querySelector("a");
+
+      // If the anchor exists
+      if (link) {
+        const artist = link.getAttribute("data-artist");
+        const title = link.getAttribute("data-title");
+        const albumImg = link.getAttribute("data-img");
+        const album = link.getAttribute("data-album-name");
+
+        getLyrics(artist, title, albumImg, album);
+      }
     }
   });
 
