@@ -15,7 +15,7 @@
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body id="lyrics-page">
     <!----- Header ----->
     <header class="header">
       <div class="container">
@@ -44,6 +44,27 @@
         </nav>
       </div>
     </header>
+
+    <!----- Lyrics Section ----->
+    <section class="lyrics-section">
+      <div class="container">
+        <div class="lyrics-content">
+          <div class="about-song">
+            <div class="album-container">
+              <img class="album-pic" src="" alt="" />
+            </div>
+
+            <div class="song-info">
+              <p class="album-name"></p>
+              <h1 class="track-title"></h1>
+              <span class="celeb"></span>
+            </div>
+          </div>
+
+          <div class="lyrics-container" id="lyrics"></div>
+        </div>
+      </div>
+    </section>
 
     <script src="./main.js"></script>
   </body>

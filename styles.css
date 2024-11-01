@@ -200,6 +200,7 @@ form .search-btn:hover {
 .results-list .result-item {
   border-bottom: 2px solid var(--secondary-color);
   padding: 20px;
+  cursor: pointer;
   transition: 0.3s;
 }
 
@@ -227,6 +228,60 @@ form .search-btn:hover {
 
 .results-list .artist-name {
   color: rgb(189, 189, 189);
+}
+
+/* ----- Lyrics Styles -----*/
+.lyrics-section {
+  padding: 130px 20px 90px;
+}
+
+.lyrics-section .about-song {
+  display: flex;
+  gap: 40px;
+
+  margin-bottom: 40px;
+}
+
+.lyrics-section .album-container {
+  width: 230px;
+  height: 230px;
+  /* border: 1px solid white; */
+}
+
+.lyrics-section .album-pic {
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.song-info .album-name {
+  font-size: 1.8rem;
+  color: rgb(189, 189, 189);
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.song-info .track-title {
+  font-size: 3.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.song-info .celeb {
+  background-color: var(--secondary-color);
+  padding: 7px 15px;
+  border-radius: 20px;
+}
+
+.lyrics-container .description {
+  color: rgb(189, 189, 189);
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+}
+
+.lyrics-container .lyrics-of-song {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2;
 }
 
 /* ----- Utility Classes ----- */
