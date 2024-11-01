@@ -319,6 +319,16 @@ form .search-btn:hover {
     font-size: 1.6rem;
     padding: 8px 10px;
   }
+
+  /* Lyric Styles */
+  .song-info .track-title {
+    font-size: 2.5rem;
+  }
+
+  .lyrics-container .description,
+  .lyrics-container .lyrics-of-song {
+    font-size: 1.6rem;
+  }
 }
 
 @media screen and (max-width: 580px) {
@@ -351,7 +361,6 @@ form .search-btn:hover {
     min-height: 100vh;
     z-index: 100;
     background-color: rgb(0, 0, 0, 0.9);
-    /* text-align: center; */
     transition: right 0.5s ease-in-out;
   }
 
@@ -373,5 +382,12 @@ form .search-btn:hover {
   /* Search Styles */
   form .search-btn {
     width: 100%;
+  }
+
+  /* Lyric Styles */
+  .lyrics-section .about-song {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 }
