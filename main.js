@@ -112,13 +112,20 @@ if (document.getElementById("search-page")) {
   }
 
   trackList.addEventListener("click", (e) => {
-    // console.log(e.target);
+    // console.log(e.target.tagName);
+    const link = document.querySelector(".lyric-link");
 
-    if (e.target.tagName === "A") {
-      const artist = e.target.getAttribute("data-artist");
-      const title = e.target.getAttribute("data-title");
-      const albumImg = e.target.getAttribute("data-img");
-      const album = e.target.getAttribute("data-album-name");
+    if (
+      e.target.tagName === "A" ||
+      e.target.tagName === "IMG" ||
+      e.target.tagName === "P" ||
+      e.target.tagName === "SPAN" ||
+      e.target.tagName === "LI"
+    ) {
+      const artist = link.getAttribute("data-artist");
+      const title = link.getAttribute("data-title");
+      const albumImg = link.getAttribute("data-img");
+      const album = link.getAttribute("data-album-name");
 
       getLyrics(artist, title, albumImg, album);
     }
@@ -131,7 +138,7 @@ if (document.getElementById("search-page")) {
     fetch(lyricURL)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
 
         // store the lyrics and song info in localStorage for data transfer across pages
         localStorage.setItem("lyrics", data.lyrics);
