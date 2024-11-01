@@ -1,6 +1,6 @@
 const BASEURL = "https://api.lyrics.ovh";
 
-// code specific to the search page
+// code specific to the search page (index.html)
 if (document.getElementById("search-page")) {
   // Variables
   const form = document.getElementById("form");
@@ -41,7 +41,7 @@ if (document.getElementById("search-page")) {
     fetch(searchURL)
       .then((res) => res.json())
       .then((data) => {
-        //   console.log(data);
+        // console.log(data);
         console.log(data.data);
 
         // check if both inputs were populated
@@ -83,6 +83,7 @@ if (document.getElementById("search-page")) {
       link.appendChild(image);
 
       const div = document.createElement("div");
+
       const para = document.createElement("p");
       para.classList.add("song-title");
       para.textContent = item.title;
@@ -98,7 +99,7 @@ if (document.getElementById("search-page")) {
   }
 
   trackList.addEventListener("click", (e) => {
-    //   console.log(e.target);
+    // console.log(e.target);
 
     if (e.target.tagName === "A") {
       const artist = e.target.getAttribute("data-artist");
@@ -133,7 +134,7 @@ if (document.getElementById("search-page")) {
   }
 }
 
-// code specific to the lyrics page
+// code specific to the lyrics page (lyrics.html)
 if (document.getElementById("lyrics-page")) {
   function displayLyrics() {
     // get song info and lyrics from localStorage
@@ -145,6 +146,7 @@ if (document.getElementById("lyrics-page")) {
 
     const img = document.querySelector(".album-pic");
     img.src = albumImg;
+    img.alt = `${albumName} album cover`;
 
     const albumTitle = document.querySelector(".album-name");
     albumTitle.textContent = albumName;
@@ -165,6 +167,10 @@ if (document.getElementById("lyrics-page")) {
     const lyricsOfSong = document.createElement("p");
     lyricsOfSong.classList.add("lyrics-of-song");
     lyricsOfSong.innerHTML = lyrics.replace(/(\r\n|\r|\n)/g, "<br>");
+
+    if (lyricsOfSong.textContent === "undefined")
+      lyricsOfSong.textContent = "No lyrics found";
+
     lyricContainer.appendChild(lyricsOfSong);
   }
 
