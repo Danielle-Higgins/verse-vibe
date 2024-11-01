@@ -290,3 +290,88 @@ form .search-btn:hover {
   margin: 0 auto;
   padding: 0 15px;
 }
+
+/* Hamburger Menu Styles */
+.mobile-menu {
+  color: #fff;
+  font-size: 35px;
+  z-index: 1000;
+  cursor: pointer;
+  display: none;
+}
+
+/* Media Queries */
+@media screen and (max-width: 700px) {
+  /* Header Styles */
+  .header .logo a {
+    font-size: 2rem;
+  }
+
+  .header .logo i {
+    font-size: 2.3rem;
+  }
+
+  .header .header-nav ul {
+    gap: 20px;
+  }
+
+  .header-nav ul li a {
+    font-size: 1.6rem;
+    padding: 8px 10px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  /* Search Styles */
+  .search-section .search-title {
+    font-size: 2.5rem;
+  }
+
+  /* Tracks Styles */
+  .track-results .results-title {
+    font-size: 2rem;
+  }
+
+  .results-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  /* Header Styles */
+  .mobile-menu {
+    display: block;
+  }
+
+  .header .header-nav {
+    position: absolute;
+    top: 0;
+    right: -300px;
+    width: 250px;
+    min-height: 100vh;
+    z-index: 100;
+    background-color: rgb(0, 0, 0, 0.9);
+    /* text-align: center; */
+    transition: right 0.5s ease-in-out;
+  }
+
+  .header .header-nav.active {
+    right: 0;
+  }
+
+  .header .header-nav ul {
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 100px;
+  }
+
+  .header-nav ul li a {
+    font-size: 1.8rem;
+    padding: 10px 18px;
+  }
+
+  /* Search Styles */
+  form .search-btn {
+    width: 100%;
+  }
+}

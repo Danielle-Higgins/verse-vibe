@@ -1,5 +1,18 @@
 const BASEURL = "https://api.lyrics.ovh";
 
+const hamburgerBtn = document.getElementById("hamburger-btn");
+const headerNav = document.querySelector(".header-nav");
+
+hamburgerBtn.addEventListener("click", () => {
+  hamburgerBtn.classList.toggle("fa-xmark");
+  headerNav.classList.toggle("active");
+});
+
+window.onscroll = () => {
+  hamburgerBtn.classList.remove("fa-xmark");
+  headerNav.classList.remove("active");
+};
+
 // code specific to the search page (index.html)
 if (document.getElementById("search-page")) {
   // Variables
