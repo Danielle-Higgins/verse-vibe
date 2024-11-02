@@ -117,7 +117,8 @@ if (document.getElementById("search-page")) {
 
     let target = e.target;
 
-    // Find the closest 'li' ancestor if the clicked element is not an 'li'
+    // find the closest 'li' ancestor if the clicked element is not an 'li'
+    // no matter where you click, it will find the elements corresponding 'li'
     while (target && target.tagName !== "LI") {
       target = target.parentElement;
     }
@@ -127,7 +128,7 @@ if (document.getElementById("search-page")) {
     // If a valid <li> is found
     if (target) {
       // Get the anchor within the <li>
-      const link = target.querySelector("a");
+      const link = target.querySelector(".lyric-link");
 
       // If the anchor exists
       if (link) {
