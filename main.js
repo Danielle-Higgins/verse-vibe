@@ -14,73 +14,84 @@ window.onscroll = () => {
 };
 
 // code specific to the search page (index.html)
-if (document.getElementById("search-page")) {
-  // Variables
-  const form = document.getElementById("form");
-  const artistInput = document.getElementById("artist");
-  const titleInput = document.getElementById("title");
-  const trackList = document.getElementById("results");
+class SongSearcher {
+  constructor(form, artist, title, trackList) {
+    this.form = document.getElementById(form);
+    this.artistInput = document.getElementById(artist);
+    this.titleInput = document.getElementById(title);
+    this.trackList = document.getElementById(trackList);
+    this.resultsTitle = document.querySelector(".results-title");
+
+    this.setupEventListners();
+  }
+
+  setupEventListners() {
+    this.form.addEventListener("submit", (e) => this.handleSubmit(e));
+    this.trackList.addEventListener("click", (e) => this.selectTrack(e));
+  }
 
   // when form is submitted, search for song
-  form.addEventListener("submit", (e) => {
+  handleSubmit(e) {
     e.preventDefault();
 
     // grab values from inputs
-    let artistVal = artistInput.value.trim();
-    let titleVal = titleInput.value.trim();
+    let artistVal = this.artistInput.value.trim();
+    let titleVal = this.titleInput.value.trim();
 
     // check if inputs are empty or not
-    if (!artistVal && !titleVal) alert("Nothing To Search");
-    else searchSong(artistVal, titleVal);
+    if (!artistVal && !titleVal) return;
+    else this.searchSong(artistVal, titleVal);
 
     // reset everything
-    artistInput.value = "";
-    titleInput.value = "";
+    this.artistInput.value = "";
+    this.titleInput.value = "";
 
-    if (trackList.innerHTML) trackList.innerHTML = "";
-  });
+    if (this.trackList.innerHTML) this.trackList.innerHTML = "";
+  }
 
   // searches for the song based on the input
-  function searchSong(artist, title) {
+  async searchSong(artist, title) {
     let searchURL = "";
 
     // check which inputs were populated
-    if (artist && !title) {
-      searchURL = `${BASEURL}/suggest/${artist}`;
-    } else {
-      searchURL = `${BASEURL}/suggest/${title}`;
+    searchURL =
+      artist && !title
+        ? `${BASEURL}/suggest/${artist}`
+        : `${BASEURL}/suggest/${title}`;
+
+    try {
+      const response = await fetch(searchURL);
+
+      if (!response.ok) throw new Error("Network response was not ok!");
+
+      const data = await response.json();
+      // console.log(data);
+      // console.log(data.data);
+
+      // check if both inputs were populated
+      if (artist && title) {
+        data.data = data.data.filter(
+          (item) =>
+            artist.toLowerCase() === item.artist.name.toLowerCase() &&
+            title.toLowerCase() === item.title.toLowerCase()
+        );
+      }
+
+      this.displayTracks(data.data);
+    } catch (error) {
+      console.log("Error:", error);
     }
-
-    fetch(searchURL)
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        console.log(data.data);
-
-        // check if both inputs were populated
-        if (artist && title) {
-          data.data = data.data.filter(
-            (item) =>
-              artist.toLowerCase() === item.artist.name.toLowerCase() &&
-              title.toLowerCase() === item.title.toLowerCase()
-          );
-        }
-
-        displayTracks(data.data);
-      })
-      .catch((error) => console.log(`${error}`));
   }
 
   // loops through an array of objects and displays the tracks
-  function displayTracks(array) {
-    document.querySelector(".results-title").style.display = "block";
+  displayTracks(array) {
+    this.resultsTitle.style.display = "block";
 
     // create our elements
     array.forEach((item) => {
       const listItem = document.createElement("li");
       listItem.classList.add("result-item");
-
-      trackList.appendChild(listItem);
+      this.trackList.appendChild(listItem);
 
       const link = document.createElement("a");
       link.classList.add("lyric-link");
@@ -112,9 +123,8 @@ if (document.getElementById("search-page")) {
   }
 
   // listens for click events on track list element (ul)
-  trackList.addEventListener("click", (e) => {
+  selectTrack(e) {
     // console.log(e.target);
-
     let target = e.target;
 
     // find the closest 'li' ancestor if the clicked element is not an 'li'
@@ -122,7 +132,6 @@ if (document.getElementById("search-page")) {
     while (target && target.tagName !== "LI") {
       target = target.parentElement;
     }
-
     // console.log(target);
 
     // If a valid <li> is found
@@ -137,37 +146,50 @@ if (document.getElementById("search-page")) {
         const albumImg = link.getAttribute("data-img");
         const album = link.getAttribute("data-album-name");
 
-        getLyrics(artist, title, albumImg, album);
+        this.getLyrics(artist, title, albumImg, album);
       }
     }
-  });
+  }
 
   // get the lyrics
-  function getLyrics(artist, title, img, album) {
+  async getLyrics(artist, title, img, album) {
     const lyricURL = `${BASEURL}/v1/${artist}/${title}`;
 
-    fetch(lyricURL)
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
+    try {
+      const response = await fetch(lyricURL);
 
-        // store the lyrics and song info in localStorage for data transfer across pages
-        localStorage.setItem("lyrics", data.lyrics);
-        localStorage.setItem("artist", artist);
-        localStorage.setItem("title", title);
-        localStorage.setItem("albumImg", img);
-        localStorage.setItem("albumName", album);
+      if (!response.ok) throw new Error("Network response was not ok!");
 
-        // redirect to lyrics page
-        window.location.href = "./lyrics.html";
-      })
-      .catch((error) => console.log(`${error}`));
+      const data = await response.json();
+      // console.log(data);
+
+      // store the lyrics and song info in localStorage for data transfer across pages
+      localStorage.setItem("lyrics", data.lyrics);
+      localStorage.setItem("artist", artist);
+      localStorage.setItem("title", title);
+      localStorage.setItem("albumImg", img);
+      localStorage.setItem("albumName", album);
+
+      // redirect to lyrics page
+      window.location.href = "./lyrics.html";
+    } catch (error) {
+      console.log("Error:", error);
+    }
   }
 }
 
+// code specific to the search page (index.html)
+if (document.getElementById("search-page")) {
+  const search = new SongSearcher("form", "artist", "title", "results");
+}
+
 // code specific to the lyrics page (lyrics.html)
-if (document.getElementById("lyrics-page")) {
-  function displayLyrics() {
+class GetSongLyrics {
+  constructor() {
+    this.displayLyrics();
+  }
+
+  displayLyrics() {
     // get song info and lyrics from localStorage
     const lyrics = localStorage.getItem("lyrics");
     const artist = localStorage.getItem("artist");
@@ -204,7 +226,9 @@ if (document.getElementById("lyrics-page")) {
 
     lyricContainer.appendChild(lyricsOfSong);
   }
+}
 
-  // call the function
-  displayLyrics();
+// code specific to the lyrics page (lyrics.html)
+if (document.getElementById("lyrics-page")) {
+  const lyrics = new GetSongLyrics();
 }
